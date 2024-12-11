@@ -10,6 +10,8 @@ void displayUsers();
 void updateUser();
 void deleteUser();
 
+
+// This is main Function
 int main()
 {
     int choice;
@@ -44,6 +46,7 @@ int main()
 
     return 0;
 }
+
 
 void createFile()
 {
@@ -157,7 +160,7 @@ void updateUser()
     scanf("%d", &searchId);
 
     while (fscanf(file, "%d %s %d", &id, name, &age) != EOF)
-    //EOF is end of file
+    //EOF is end of file it will scan till the end of the file
     {
         if (id == searchId)
         {
