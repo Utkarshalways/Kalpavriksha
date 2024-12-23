@@ -10,7 +10,6 @@ int precedence(char operator)
     {
         return 1;
     }
-
     if (operator== '*' || operator== '/')
     {
         return 2;
@@ -20,41 +19,58 @@ int precedence(char operator)
 
 int calculate(int num1, int num2, char operator)
 {
-    if (operator== '+')
+    switch (operator)
     {
+    case '+':
         return num1 + num2;
-    }
-    if (operator== '-')
-    {
+    case '-':
         return num1 - num2;
-    }
-    if (operator== '*')
-    {
+    case '*':
         return num1 * num2;
-    }
-    if (operator== '/')
-    {
+    case '/':
+        if (num2 == 0)
+        {
+            return 0; 
+        }
         return num1 / num2;
+    default:
+        return 0;
     }
-    return 0; 
 }
-
 
 int evaluateExpression(const char *expression, int *errorFlag)
 {
-    
     int numbers[MAX_LEN], numTop = -1;
     char operators[MAX_LEN], opTop = -1;
 
-    
     for (int i = 0; expression[i] != '\0'; i++)
     {
         char current = expression[i];
 
-        
         if (isspace(current))
         {
             continue;
+        }
+
+        
+        if (current == '-' && (i == 0 || strchr("+-*/", expression[i - 1]) != NULL))
+        {
+            
+            i++;
+            if (!isdigit(expression[i]))
+            {
+                *errorFlag = 2; 
+                return 0;
+            }
+            int number = 0;
+            while (isdigit(expression[i]))
+            {
+                number = number * 10 + (expression[i] - '0');
+                i++;
+            }
+            i--;                         
+            numbers[++numTop] = -number; 
+            continue;                    
         }
 
         
@@ -66,37 +82,35 @@ int evaluateExpression(const char *expression, int *errorFlag)
                 number = number * 10 + (expression[i] - '0');
                 i++;
             }
-            i--;                        
-            numbers[++numTop] = number; 
+            i--; 
+            numbers[++numTop] = number;
+            continue; 
         }
+
         
-        else if (current == '+' || current == '-' || current == '*' || current == '/')
+        if (current == '+' || current == '-' || current == '*' || current == '/')
         {
             while (opTop >= 0 && precedence(operators[opTop]) >= precedence(current))
             {
-                
                 char op = operators[opTop--];
                 int num2 = numbers[numTop--];
                 int num1 = numbers[numTop--];
 
-                
                 if (op == '/' && num2 == 0)
                 {
-                    *errorFlag = 1;
+                    *errorFlag = 1; 
                     return 0;
                 }
 
-                
                 numbers[++numTop] = calculate(num1, num2, op);
             }
-            operators[++opTop] = current; 
+            operators[++opTop] = current;
+            continue; 
         }
+
         
-        else
-        {
-            *errorFlag = 2;
-            return 0;
-        }
+        *errorFlag = 2;
+        return 0;
     }
 
     
@@ -108,31 +122,29 @@ int evaluateExpression(const char *expression, int *errorFlag)
 
         if (op == '/' && num2 == 0)
         {
-            *errorFlag = 1;
+            *errorFlag = 1; 
             return 0;
         }
 
         numbers[++numTop] = calculate(num1, num2, op);
     }
 
-    
-    return numbers[numTop];
+    return numbers[numTop]; 
 }
 
 int main()
 {
     char expression[MAX_LEN];
     printf("Enter a mathematical expression: ");
-    fgets(expression, MAX_LEN, stdin); 
+    fgets(expression, MAX_LEN, stdin);
 
-    
     size_t len = strlen(expression);
     if (len > 0 && expression[len - 1] == '\n')
     {
-        expression[len - 1] = '\0';
+        expression[len - 1] = '\0'; 
     }
 
-    int errorFlag = 0; 
+    int errorFlag = 0;
     int result = evaluateExpression(expression, &errorFlag);
 
     if (errorFlag == 1)
@@ -150,5 +162,3 @@ int main()
 
     return 0;
 }
-
-
