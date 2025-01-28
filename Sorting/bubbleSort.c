@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 int printArr(int arrSize,int arr[arrSize]){
@@ -24,17 +25,22 @@ void  swap(int *first , int* second){
 
 void bubbleSort(int arr[],int arrSize){
 
+    bool swapped = false;
 
     for(int idx = 0;idx < arrSize;idx++){
 
-        for(int j = 1;j<arrSize;j++){
+        for(int j = 1;j<arrSize-idx+1;j++){
 
             if(arr[j-1] > arr[j]){
 
                 swap(&arr[j-1],&arr[j]);
-
+                swapped = true;
             }
 
+        }
+        if(swapped == false){
+
+            break;
         }
 
     }
