@@ -235,7 +235,7 @@ int main(){
                     break;
 
             // case 3:
-            case 5: printf("%d",getTotalBooks());
+            case 5: printf("%d\n",getTotalBooks());
                     break;
 
 
