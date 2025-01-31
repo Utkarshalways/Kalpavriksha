@@ -1,3 +1,7 @@
-## This is the file for the Kalpavriksha Program
-
-# here i will be doing the assignments
+### Push Operation: Time Complexity 𝑂 ( 𝑛 ) 
+### Pop Operation: Time Complexity 𝑂 ( 1 ) 
+### Peek Operation: Time Complexity 𝑂 ( 1 ) 
+### isEmpty Operation: Time Complexity 𝑂 ( 1 ) 
+### isFull Operation: Time Complexity 𝑂 ( 1 ) 
+### Size Operation: Time Complexity 𝑂 ( 1 ) 
+### Space Complexity: 𝑂 ( 𝑛 )
