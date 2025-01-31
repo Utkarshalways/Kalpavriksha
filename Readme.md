@@ -1,3 +1,1 @@
-## This is the file for the Kalpavriksha Program
-
-# here i will be doing the assignments
+## The time complexity for both enqueue and dequeue operations is 𝑂 ( 𝑛 ) in the worst case, and the space complexity is 𝑂 ( 𝑛 ) as two stacks are used to implement the queue.
