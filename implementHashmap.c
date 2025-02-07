@@ -105,15 +105,21 @@ void display(Hashmap *hashmap)
 {
 
     for (int idx = 0; idx < hashmap->size; idx++)
-    {
-        printf("Index:- %d", idx + 1);
+    {   
+
         Node *temp = hashmap->map[idx];
+        if(temp != NULL){
+            printf("Index:- %d ", idx + 1);
+        }
         while (temp != NULL)
         {
             printf("(%d, %d) -> ", temp->key, temp->value);
             temp = temp->next;
+            if(temp == NULL){
+                printf("NULL\n");
+            }
         }
-        printf(" NULL\n");
+        
     }
 }
 
